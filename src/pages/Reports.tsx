@@ -49,9 +49,9 @@ export default function Reports() {
     }, {} as Record<string, number>);
 
     return [
-      { name: 'Completed', value: counts.completed || 0 },
-      { name: 'In Progress', value: counts.in_progress || 0 },
-      { name: 'Pending', value: counts.pending || 0 },
+      { name: 'Selesai', value: counts.completed || 0 },
+      { name: 'Berjalan', value: counts.in_progress || 0 },
+      { name: 'Menunggu', value: counts.pending || 0 },
     ];
   }, []);
 
@@ -79,7 +79,7 @@ export default function Reports() {
     if (!feedback[activityId]) return;
     console.log(`Submitting feedback for ${activityId}:`, feedback[activityId]);
     // In a real app, this would hit the Supabase API
-    alert('Feedback submitted to the division administrator.');
+    alert('Umpan balik telah dikirim ke admin divisi.');
     setFeedback(prev => ({ ...prev, [activityId]: '' }));
   };
 
@@ -90,10 +90,10 @@ export default function Reports() {
         <div className="space-y-1">
           <h1 className="text-3xl font-bold tracking-tight text-primary flex items-center gap-2">
             <FileText className="w-8 h-8" />
-            Monthly Executive Report
+            Laporan Eksekutif Bulanan
           </h1>
           <p className="text-muted-foreground">
-            Comprehensive review for February 2026 — Pondok Pesantren Salafiyah Al-Jawahir
+            Tinjauan komprehensif untuk Februari 2026 — Pondok Pesantren Salafiyah Al-Jawahir
           </p>
         </div>
         <Button 
@@ -101,15 +101,15 @@ export default function Reports() {
           className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
         >
           <Printer className="w-4 h-4" />
-          Print Report
+          Cetak Laporan
         </Button>
       </header>
 
       {/* Report Header for Print */}
       <div className="hidden print:block text-center space-y-4 mb-8">
-        <h1 className="text-4xl font-bold text-primary">RISALAH MANAGEMENT SYSTEM</h1>
-        <h2 className="text-2xl font-semibold">Monthly Performance Report: February 2026</h2>
-        <p className="text-sm italic text-muted-foreground">Generated on {new Date().toLocaleString()} by {user?.name}</p>
+        <h1 className="text-4xl font-bold text-primary">SISTEM MANAJEMEN RISALAH</h1>
+        <h2 className="text-2xl font-semibold">Laporan Kinerja Bulanan: Februari 2026</h2>
+        <p className="text-sm italic text-muted-foreground">Dibuat pada {new Date().toLocaleString()} oleh {user?.name}</p>
         <Separator className="my-4" />
       </div>
 
@@ -117,47 +117,47 @@ export default function Reports() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="p-6 border-l-4 border-l-emerald-600 space-y-2">
           <div className="flex justify-between items-start">
-            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Overall Completion</p>
+            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Penyelesaian Keseluruhan</p>
             <CheckCircle2 className="w-5 h-5 text-emerald-600" />
           </div>
           <p className="text-3xl font-bold">82.5%</p>
           <p className="text-xs text-emerald-600 font-medium flex items-center gap-1">
-            <TrendingUp className="w-3 h-3" /> +12% from last month
+            <TrendingUp className="w-3 h-3" /> +12% dari bulan lalu
           </p>
         </Card>
 
         <Card className="p-6 border-l-4 border-l-amber-500 space-y-2">
           <div className="flex justify-between items-start">
-            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Active Violations</p>
+            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Pelanggaran Aktif</p>
             <AlertCircle className="w-5 h-5 text-amber-500" />
           </div>
           <p className="text-3xl font-bold">{mockViolations.filter(v => v.status === 'pending').length}</p>
-          <p className="text-xs text-muted-foreground">Total logs: {mockViolations.length} cases</p>
+          <p className="text-xs text-muted-foreground">Total catatan: {mockViolations.length} kasus</p>
         </Card>
 
         <Card className="p-6 border-l-4 border-l-primary space-y-2">
           <div className="flex justify-between items-start">
-            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Net Cashflow</p>
+            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Arus Kas Bersih</p>
             <Calendar className="w-5 h-5 text-primary" />
           </div>
           <p className="text-3xl font-bold text-primary">
             {formatCurrency(cashflowData[0].income - cashflowData[0].expense)}
           </p>
-          <p className="text-xs text-muted-foreground">Current Month Balance</p>
+          <p className="text-xs text-muted-foreground">Saldo Bulan Ini</p>
         </Card>
       </div>
 
       {/* Analytics Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-6">Program Completion Status</h3>
+          <h3 className="text-lg font-semibold mb-6">Status Penyelesaian Program</h3>
           <div className="h-[300px]">
             <CompletionChart data={completionData} />
           </div>
         </Card>
 
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-6">Security Disciplinary Trends</h3>
+          <h3 className="text-lg font-semibold mb-6">Tren Kedisiplinan Keamanan</h3>
           <div className="h-[300px]">
             <SecurityTrendChart data={securityTrendData} />
           </div>
@@ -169,7 +169,7 @@ export default function Reports() {
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
             <MessageSquare className="w-6 h-6" />
-            Division Activities & Board Feedback
+            Aktivitas Divisi & Umpan Balik Pimpinan
           </h2>
         </div>
 
@@ -194,14 +194,14 @@ export default function Reports() {
                   <p className="text-muted-foreground">{activity.description}</p>
                   
                   <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                    <span><strong>Date:</strong> {formatDate(activity.date)}</span>
-                    <span><strong>Recorded By:</strong> Admin {activity.division}</span>
+                    <span><strong>Tanggal:</strong> {formatDate(activity.date)}</span>
+                    <span><strong>Dicatat Oleh:</strong> Admin {activity.division}</span>
                   </div>
 
                   {/* Existing Comments */}
                   {activity.comments && activity.comments.length > 0 && (
                     <div className="mt-4 space-y-3">
-                      <h4 className="text-xs font-semibold uppercase text-muted-foreground tracking-tighter">Previous Feedback</h4>
+                      <h4 className="text-xs font-semibold uppercase text-muted-foreground tracking-tighter">Umpan Balik Sebelumnya</h4>
                       {activity.comments.map(comment => (
                         <div key={comment.id} className="bg-muted/50 p-3 rounded-lg border-l-2 border-l-primary">
                           <p className="text-sm italic">"{comment.content}"</p>
@@ -218,10 +218,10 @@ export default function Reports() {
                     <div className="space-y-4">
                       <h4 className="font-semibold flex items-center gap-2 text-primary">
                         <MessageSquare className="w-4 h-4" />
-                        Direct Feedback
+                        Umpan Balik Langsung
                       </h4>
                       <Textarea 
-                        placeholder="Type instructions or validation notes here..."
+                        placeholder="Ketik instruksi atau catatan validasi di sini..."
                         className="min-h-[100px] bg-background border-border focus:ring-accent"
                         value={feedback[activity.id] || ''}
                         onChange={(e) => setFeedback(prev => ({ ...prev, [activity.id]: e.target.value }))}
@@ -231,7 +231,7 @@ export default function Reports() {
                         onClick={() => handleFeedbackSubmit(activity.id)}
                       >
                         <Send className="w-4 h-4" />
-                        Submit Feedback
+                        Kirim Umpan Balik
                       </Button>
                     </div>
                   </div>
@@ -244,15 +244,15 @@ export default function Reports() {
 
       {/* Financial Summary Table for Report */}
       <Card className="p-6 print:block overflow-hidden">
-        <h3 className="text-xl font-bold mb-6 text-primary">Financial Ledger Summary (Monthly)</h3>
+        <h3 className="text-xl font-bold mb-6 text-primary">Ringkasan Buku Besar Keuangan (Bulanan)</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
             <thead className="bg-muted text-muted-foreground uppercase text-xs font-semibold">
               <tr>
-                <th className="px-4 py-3">Date</th>
-                <th className="px-4 py-3">Category</th>
-                <th className="px-4 py-3">Description</th>
-                <th className="px-4 py-3 text-right">Amount</th>
+                <th className="px-4 py-3">Tanggal</th>
+                <th className="px-4 py-3">Kategori</th>
+                <th className="px-4 py-3">Deskripsi</th>
+                <th className="px-4 py-3 text-right">Jumlah</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -276,7 +276,7 @@ export default function Reports() {
             </tbody>
             <tfoot className="bg-primary/5 font-bold">
               <tr>
-                <td colSpan={3} className="px-4 py-4 text-right">Monthly Net Surplus/Deficit:</td>
+                <td colSpan={3} className="px-4 py-4 text-right">Surplus/Defisit Bersih Bulanan:</td>
                 <td className="px-4 py-4 text-right text-lg text-primary">
                   {formatCurrency(cashflowData[0].income - cashflowData[0].expense)}
                 </td>
