@@ -55,16 +55,16 @@ const Login: React.FC = () => {
         setUser(mockUser);
         
         toast({
-          title: "Welcome Back",
-          description: `Logged in as ${USER_ROLES[selectedRole].label}`,
+          title: "Selamat Datang Kembali",
+          description: `Masuk sebagai ${USER_ROLES[selectedRole].label}`,
         });
 
         navigate(ROUTE_PATHS.DASHBOARD);
       } catch (error) {
         toast({
           variant: "destructive",
-          title: "Authentication Failed",
-          description: "Please check your credentials and try again.",
+          title: "Autentikasi Gagal",
+          description: "Silakan periksa kredensial Anda dan coba lagi.",
         });
       } finally {
         setIsLoading(false);
@@ -106,21 +106,21 @@ const Login: React.FC = () => {
         <Card className="border-border/50 shadow-2xl backdrop-blur-sm bg-card/95 overflow-hidden">
           <div className="h-1.5 w-full bg-gradient-to-r from-primary via-accent to-primary" />
           <CardHeader className="space-y-1 pb-4">
-            <CardTitle className="text-2xl text-center">Sign In</CardTitle>
+            <CardTitle className="text-2xl text-center">Masuk</CardTitle>
             <CardDescription className="text-center">
-              Access your division management system
+              Akses sistem manajemen divisi Anda
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">Alamat Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
-                    placeholder="name@al-jawahir.id"
+                    placeholder="nama@al-jawahir.id"
                     className="pl-10"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -130,7 +130,7 @@ const Login: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Kata Sandi</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -146,13 +146,13 @@ const Login: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2 col-span-2">
-                  <Label>Access Role</Label>
+                  <Label>Peran Akses</Label>
                   <Select 
                     value={selectedRole} 
                     onValueChange={(val: UserRole) => setSelectedRole(val)}
                   >
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select your role" />
+                      <SelectValue placeholder="Pilih peran Anda" />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.entries(USER_ROLES).map(([key, { label }]) => (
@@ -166,13 +166,13 @@ const Login: React.FC = () => {
 
                 {selectedRole === 'divisional_admin' && (
                   <div className="space-y-2 col-span-2 animate-in fade-in slide-in-from-top-2">
-                    <Label>Assigned Division</Label>
+                    <Label>Divisi yang Ditugaskan</Label>
                     <Select 
                       value={selectedDivision} 
                       onValueChange={(val: DivisionType) => setSelectedDivision(val)}
                     >
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Choose division" />
+                        <SelectValue placeholder="Pilih divisi" />
                       </SelectTrigger>
                       <SelectContent>
                         {DIVISIONS.map((div) => (
@@ -194,7 +194,7 @@ const Login: React.FC = () => {
                 {isLoading ? (
                   <div className="flex items-center gap-2">
                     <div className="h-4 w-4 border-2 border-primary-foreground/30 border-t-primary-foreground animate-spin rounded-full" />
-                    Authenticating...
+                    Mengautentikasi...
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
@@ -208,7 +208,7 @@ const Login: React.FC = () => {
           <CardFooter className="flex flex-col space-y-4 pt-2 pb-6">
             <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg w-full">
               <AlertCircle className="w-4 h-4 text-accent" />
-              <span>Only authorized pesantren administrators can access this system.</span>
+              <span>Hanya pengurus pesantren yang berwenang yang dapat mengakses sistem ini.</span>
             </div>
             <p className="text-xs text-center text-muted-foreground">
               &copy; 2026 RISALAH | Pondok Pesantren Salafiyah Al-Jawahir
@@ -222,8 +222,8 @@ const Login: React.FC = () => {
         <div className="flex items-center gap-3 opacity-40 grayscale hover:grayscale-0 transition-all duration-500 cursor-default">
            <Shield className="w-8 h-8 text-primary" />
            <div className="text-right">
-              <p className="text-xs font-bold text-primary uppercase tracking-widest">Secure Infrastructure</p>
-              <p className="text-[10px] text-muted-foreground">Encrypted Data Protocol v4.2</p>
+              <p className="text-xs font-bold text-primary uppercase tracking-widest">Infrastruktur Aman</p>
+              <p className="text-[10px] text-muted-foreground">Protokol Data Terenkripsi v4.2</p>
            </div>
         </div>
       </div>
