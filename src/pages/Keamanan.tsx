@@ -76,7 +76,7 @@ const Keamanan: React.FC = () => {
   };
 
   const handleDeleteViolation = (id: string) => {
-    if (confirm('Are you sure you want to delete this record?')) {
+    if (confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
       setViolations(violations.filter(v => v.id !== id));
     }
   };
@@ -93,18 +93,18 @@ const Keamanan: React.FC = () => {
 
   const columns = [
     {
-      label: 'Santri Name',
+      label: 'Nama Santri',
       key: 'santriName',
       render: (item: Violation) => (
         <div className="font-medium">{item.santriName}</div>
       )
     },
     {
-      label: 'Violation Type',
+      label: 'Jenis Pelanggaran',
       key: 'type',
     },
     {
-      label: 'Severity',
+      label: 'Tingkat Keparahan',
       key: 'severity',
       render: (item: Violation) => (
         <Badge variant="outline" className={getStatusColor(item.severity)}>
@@ -113,12 +113,12 @@ const Keamanan: React.FC = () => {
       )
     },
     {
-      label: 'Date',
+      label: 'Tanggal',
       key: 'date',
       render: (item: Violation) => formatDate(item.date)
     },
     {
-      label: 'Takzir (Punishment)',
+      label: 'Takzir (Hukuman)',
       key: 'takzir',
       render: (item: Violation) => (
         <span className="text-sm text-muted-foreground italic">{item.takzir}</span>
@@ -129,7 +129,7 @@ const Keamanan: React.FC = () => {
       key: 'status',
       render: (item: Violation) => (
         <Badge variant="outline" className={getStatusColor(item.status)}>
-          {item.status === 'completed' ? 'Cleared' : 'Pending'}
+          {item.status === 'completed' ? 'Tuntas' : 'Menunggu'}
         </Badge>
       )
     }
@@ -139,8 +139,8 @@ const Keamanan: React.FC = () => {
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-primary">Security Division</h1>
-          <p className="text-muted-foreground">Monitoring santri violations and disciplinary actions (Takzir).</p>
+          <h1 className="text-3xl font-bold tracking-tight text-primary">Divisi Keamanan</h1>
+          <p className="text-muted-foreground">Memantau pelanggaran santri dan tindakan kedisiplinan (Takzir).</p>
         </div>
         
         {hasWriteAccess && (
@@ -151,12 +151,12 @@ const Keamanan: React.FC = () => {
             <DialogTrigger asChild>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Plus className="mr-2 h-4 w-4" />
-                Log New Violation
+                Catat Pelanggaran Baru
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
               <DialogHeader>
-                <DialogTitle>{editingViolation ? 'Edit Violation Record' : 'Record New Violation'}</DialogTitle>
+                <DialogTitle>{editingViolation ? 'Edit Catatan Pelanggaran' : 'Catat Pelanggaran Baru'}</DialogTitle>
               </DialogHeader>
               <ViolationForm 
                 onSubmit={editingViolation ? handleEditViolation : handleAddViolation}
@@ -173,7 +173,7 @@ const Keamanan: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Total Violations</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Pelanggaran</p>
                 <h3 className="text-2xl font-bold">{stats.total}</h3>
               </div>
               <ShieldAlert className="h-8 w-8 text-primary/20" />
@@ -185,7 +185,7 @@ const Keamanan: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Pending Takzir</p>
+                <p className="text-sm font-medium text-muted-foreground">Takzir Menunggu</p>
                 <h3 className="text-2xl font-bold">{stats.pending}</h3>
               </div>
               <Clock className="h-8 w-8 text-amber-500/20" />
@@ -197,7 +197,7 @@ const Keamanan: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Completed</p>
+                <p className="text-sm font-medium text-muted-foreground">Tuntas</p>
                 <h3 className="text-2xl font-bold">{stats.completed}</h3>
               </div>
               <CheckCircle2 className="h-8 w-8 text-emerald-500/20" />
@@ -209,7 +209,7 @@ const Keamanan: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">High Severity</p>
+                <p className="text-sm font-medium text-muted-foreground">Pelanggaran Berat</p>
                 <h3 className="text-2xl font-bold">{stats.highSeverity}</h3>
               </div>
               <AlertTriangle className="h-8 w-8 text-rose-500/20" />
@@ -223,7 +223,7 @@ const Keamanan: React.FC = () => {
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
             <ShieldAlert className="h-5 w-5 text-primary" />
-            Violation Trends
+            Tren Pelanggaran
           </CardTitle>
         </CardHeader>
         <CardContent className="h-[300px]">
@@ -235,11 +235,11 @@ const Keamanan: React.FC = () => {
       <Card>
         <CardHeader className="pb-3">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <CardTitle>Violation Logbook</CardTitle>
+            <CardTitle>Buku Catatan Pelanggaran</CardTitle>
             <div className="relative w-full md:w-72">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search santri or type..."
+                placeholder="Cari santri atau jenis..."
                 className="pl-8"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -253,7 +253,7 @@ const Keamanan: React.FC = () => {
             data={filteredViolations} 
             onEdit={hasWriteAccess ? openEditDialog : undefined}
             onDelete={hasWriteAccess ? handleDeleteViolation : undefined}
-            searchPlaceholder="Filter violations..."
+            searchPlaceholder="Filter pelanggaran..."
           />
         </CardContent>
       </Card>
@@ -262,10 +262,10 @@ const Keamanan: React.FC = () => {
         <div className="bg-accent/10 border border-accent p-4 rounded-lg flex items-start gap-3">
           <ShieldAlert className="h-5 w-5 text-accent mt-0.5" />
           <div>
-            <p className="font-medium text-accent-foreground">Mudir Perspective</p>
+            <p className="font-medium text-accent-foreground">Perspektif Mudir</p>
             <p className="text-sm text-accent-foreground/80">
-              You are viewing this division as Super Admin. All data is read-only. 
-              Please use the Reports page to provide formal feedback to the Security Division.
+              Anda melihat divisi ini sebagai Super Admin. Semua data bersifat hanya baca. 
+              Silakan gunakan halaman Laporan untuk memberikan umpan balik resmi ke Divisi Keamanan.
             </p>
           </div>
         </div>
