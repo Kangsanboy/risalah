@@ -82,7 +82,7 @@ const Bendahara: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this record?')) {
+    if (window.confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
       setRecords(prev => prev.filter(r => r.id !== id));
     }
   };
@@ -103,34 +103,34 @@ const Bendahara: React.FC = () => {
 
   const columns = [
     {
-      header: 'Date',
+      header: 'Tanggal',
       accessorKey: 'date',
       cell: ({ row }: any) => <span className="font-mono">{formatDate(row.original.date)}</span>,
     },
     {
-      header: 'Category',
+      header: 'Kategori',
       accessorKey: 'category',
       cell: ({ row }: any) => <span className="font-medium">{row.original.category}</span>,
     },
     {
-      header: 'Description',
+      header: 'Deskripsi',
       accessorKey: 'description',
       cell: ({ row }: any) => <span className="text-muted-foreground line-clamp-1">{row.original.description}</span>,
     },
     {
-      header: 'Type',
+      header: 'Jenis',
       accessorKey: 'type',
       cell: ({ row }: any) => (
         <Badge 
           variant={row.original.type === 'income' ? 'outline' : 'destructive'}
           className={row.original.type === 'income' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : ''}
         >
-          {row.original.type.toUpperCase()}
+          {row.original.type === 'income' ? 'PEMASUKAN' : 'PENGELUARAN'}
         </Badge>
       ),
     },
     {
-      header: 'Amount',
+      header: 'Jumlah',
       accessorKey: 'amount',
       cell: ({ row }: any) => (
         <span className={`font-mono font-bold ${row.original.type === 'income' ? 'text-emerald-600' : 'text-rose-600'}`}>
@@ -144,12 +144,12 @@ const Bendahara: React.FC = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
         <AlertCircle className="h-16 w-16 text-rose-500 mb-4" />
-        <h2 className="text-2xl font-bold text-foreground">Access Denied</h2>
+        <h2 className="text-2xl font-bold text-foreground">Akses Ditolak</h2>
         <p className="text-muted-foreground max-w-md mt-2">
-          You do not have permission to view the financial records. Please contact the administrator if you believe this is an error.
+          Anda tidak memiliki izin untuk melihat laporan keuangan. Silakan hubungi administrator jika ini adalah sebuah kesalahan.
         </p>
         <Button className="mt-6" onClick={() => window.location.href = ROUTE_PATHS.DASHBOARD}>
-          Return to Dashboard
+          Kembali ke Beranda
         </Button>
       </div>
     );
@@ -159,18 +159,18 @@ const Bendahara: React.FC = () => {
     <div className="space-y-6 animate-in fade-in duration-500">
       <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-primary">Financial Bookkeeping</h1>
-          <p className="text-muted-foreground">Manage student dues, donations, and operational expenses of the Pesantren.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-primary">Pembukuan Keuangan</h1>
+          <p className="text-muted-foreground">Kelola iuran santri, donasi, dan pengeluaran operasional Pesantren.</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" className="hidden sm:flex">
             <Download className="mr-2 h-4 w-4" />
-            Export PDF
+            Ekspor PDF
           </Button>
           {hasWriteAccess && (
             <Button onClick={handleAdd} className="bg-primary text-primary-foreground hover:bg-primary/90">
               <Plus className="mr-2 h-4 w-4" />
-              Add Record
+              Tambah Transaksi
             </Button>
           )}
         </div>
@@ -179,34 +179,34 @@ const Bendahara: React.FC = () => {
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="border-l-4 border-l-emerald-500">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Income</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Pemasukan</CardTitle>
             <TrendingUp className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-emerald-600">{formatCurrency(totals.income)}</div>
-            <p className="text-xs text-muted-foreground mt-1">Monthly revenue from all sources</p>
+            <p className="text-xs text-muted-foreground mt-1">Pendapatan bulanan dari semua sumber</p>
           </CardContent>
         </Card>
 
         <Card className="border-l-4 border-l-rose-500">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Expense</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Pengeluaran</CardTitle>
             <TrendingDown className="h-4 w-4 text-rose-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-rose-600">{formatCurrency(totals.expense)}</div>
-            <p className="text-xs text-muted-foreground mt-1">Monthly operational spending</p>
+            <p className="text-xs text-muted-foreground mt-1">Pengeluaran operasional bulanan</p>
           </CardContent>
         </Card>
 
         <Card className="border-l-4 border-l-accent">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Net Balance</CardTitle>
+            <CardTitle className="text-sm font-medium">Sisa Saldo</CardTitle>
             <Wallet className="h-4 w-4 text-accent" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatCurrency(balance)}</div>
-            <p className="text-xs text-muted-foreground mt-1">Remaining cash in hand</p>
+            <p className="text-xs text-muted-foreground mt-1">Sisa uang kas saat ini</p>
           </CardContent>
         </Card>
       </div>
@@ -214,8 +214,8 @@ const Bendahara: React.FC = () => {
       <div className="grid gap-6 lg:grid-cols-7">
         <Card className="lg:col-span-4">
           <CardHeader>
-            <CardTitle>Cashflow Analysis</CardTitle>
-            <CardDescription>Visual trend of income vs expenses for the current period.</CardDescription>
+            <CardTitle>Analisis Arus Kas</CardTitle>
+            <CardDescription>Tren visual pemasukan vs pengeluaran untuk periode ini.</CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
             <CashflowChart data={chartData as any} />
@@ -224,8 +224,8 @@ const Bendahara: React.FC = () => {
 
         <Card className="lg:col-span-3">
           <CardHeader>
-            <CardTitle>Recent Summary</CardTitle>
-            <CardDescription>Breakdown by major categories.</CardDescription>
+            <CardTitle>Ringkasan Terbaru</CardTitle>
+            <CardDescription>Rincian berdasarkan kategori utama.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {records.slice(0, 5).map((record) => (
@@ -240,7 +240,7 @@ const Bendahara: React.FC = () => {
               </div>
             ))}
             <Button variant="ghost" className="w-full text-xs" onClick={() => setActiveTab('all')}>
-              View Full History
+              Lihat Riwayat Lengkap
             </Button>
           </CardContent>
         </Card>
@@ -249,14 +249,14 @@ const Bendahara: React.FC = () => {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
-            <CardTitle>Transaction Logs</CardTitle>
-            <CardDescription>Detailed history of all financial activities.</CardDescription>
+            <CardTitle>Riwayat Transaksi</CardTitle>
+            <CardDescription>Detail riwayat seluruh aktivitas keuangan.</CardDescription>
           </div>
           <Tabs defaultValue="all" onValueChange={(v) => setActiveTab(v as any)}>
             <TabsList>
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="income">Income</TabsTrigger>
-              <TabsTrigger value="expense">Expenses</TabsTrigger>
+              <TabsTrigger value="all">Semua</TabsTrigger>
+              <TabsTrigger value="income">Pemasukan</TabsTrigger>
+              <TabsTrigger value="expense">Pengeluaran</TabsTrigger>
             </TabsList>
           </Tabs>
         </CardHeader>
@@ -266,7 +266,7 @@ const Bendahara: React.FC = () => {
             data={filteredRecords} 
             onEdit={hasWriteAccess ? handleEdit : undefined}
             onDelete={hasWriteAccess ? handleDelete : undefined}
-            searchPlaceholder="Search categories or descriptions..."
+            searchPlaceholder="Cari kategori atau deskripsi..."
           />
         </CardContent>
       </Card>
@@ -274,9 +274,9 @@ const Bendahara: React.FC = () => {
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>{editingRecord ? 'Edit Transaction' : 'Record New Transaction'}</DialogTitle>
+            <DialogTitle>{editingRecord ? 'Edit Transaksi' : 'Catat Transaksi Baru'}</DialogTitle>
             <DialogDescription>
-              Ensure all financial data is recorded accurately for auditing purposes.
+              Pastikan semua data keuangan dicatat dengan akurat untuk keperluan pelaporan.
             </DialogDescription>
           </DialogHeader>
           <FinancialForm 
