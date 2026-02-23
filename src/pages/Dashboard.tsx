@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-primary">Ahlan wa Sahlan, {user?.name}</h1>
           <p className="text-muted-foreground mt-1">
-            Welcome to RISALAH Management System. Here is your daily pesantren overview.
+            Selamat datang di Sistem Manajemen RISALAH. Berikut adalah ringkasan harian pesantren Anda.
           </p>
         </div>
         <div className="flex items-center gap-2 bg-card p-3 rounded-xl border shadow-sm">
@@ -99,25 +99,25 @@ const Dashboard: React.FC = () => {
       {/* Top Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard 
-          title="Program Completion"
+          title="Progres Program"
           value={`${stats.completionRate}%`}
           icon={<LayoutDashboard className="w-5 h-5" />}
           trend={5}
         />
         <StatsCard 
-          title="Current Balance"
+          title="Saldo Kas"
           value={formatCurrency(stats.balance)}
           icon={<Wallet className="w-5 h-5" />}
           trend={12}
         />
         <StatsCard 
-          title="Pending Violations"
+          title="Pelanggaran Diproses"
           value={stats.pendingViolations}
           icon={<ShieldAlert className="w-5 h-5" />}
           trend={-2}
         />
         <StatsCard 
-          title="Active Programs"
+          title="Program Aktif"
           value={stats.totalActivities}
           icon={<TrendingUp className="w-5 h-5" />}
           trend={8}
@@ -130,11 +130,11 @@ const Dashboard: React.FC = () => {
           <Card className="h-full">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>Cashflow Analysis</CardTitle>
-                <CardDescription>Monthly income vs expenditure comparison</CardDescription>
+                <CardTitle>Analisis Arus Kas</CardTitle>
+                <CardDescription>Perbandingan pemasukan dan pengeluaran bulanan</CardDescription>
               </div>
               <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
-                Real-time
+                Terkini
               </Badge>
             </CardHeader>
             <CardContent className="pt-4">
@@ -145,27 +145,27 @@ const Dashboard: React.FC = () => {
         
         <div className="space-y-6">
           <ProgressCard 
-            title="Overall Progress"
+            title="Progres Keseluruhan"
             current={stats.completedActivities}
             total={stats.totalActivities}
             percentage={stats.completionRate}
-            label="Tasks Completed"
+            label="Tugas Selesai"
             icon={<CheckCircle2 className="w-5 h-5 text-emerald-600" />}
           />
           
           <Card>
             <CardHeader>
-              <CardTitle>Quick Insights</CardTitle>
+              <CardTitle>Ringkasan Cepat</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <MetricCard 
-                label="Total Income"
+                label="Total Pemasukan"
                 value={formatCurrency(stats.totalIncome)}
                 icon={<ArrowUpRight className="w-4 h-4 text-emerald-500" />}
                 variant="default"
               />
               <MetricCard 
-                label="Total Expenses"
+                label="Total Pengeluaran"
                 value={formatCurrency(stats.totalExpense)}
                 icon={<ArrowDownRight className="w-4 h-4 text-rose-500" />}
                 variant="accent"
@@ -179,8 +179,8 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Security & Discipline Trend</CardTitle>
-            <CardDescription>Violation frequency over the last few days</CardDescription>
+            <CardTitle>Tren Keamanan & Kedisiplinan</CardTitle>
+            <CardDescription>Frekuensi pelanggaran beberapa hari terakhir</CardDescription>
           </CardHeader>
           <CardContent>
             <SecurityTrendChart data={securityTrendData} />
@@ -189,8 +189,8 @@ const Dashboard: React.FC = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Divisional Performance</CardTitle>
-            <CardDescription>Completed activities per administrative division</CardDescription>
+            <CardTitle>Kinerja Divisi</CardTitle>
+            <CardDescription>Aktivitas selesai berdasarkan divisi pengurus</CardDescription>
           </CardHeader>
           <CardContent>
             <CompletionChart data={completionData} />
@@ -203,15 +203,15 @@ const Dashboard: React.FC = () => {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Latest Activity Log</CardTitle>
-              <CardDescription>Recently updated tasks and reports</CardDescription>
+              <CardTitle>Log Aktivitas Terbaru</CardTitle>
+              <CardDescription>Tugas dan laporan yang baru saja diperbarui</CardDescription>
             </div>
             <motion.button 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="text-sm font-medium text-primary hover:underline"
             >
-              View All
+              Lihat Semua
             </motion.button>
           </div>
         </CardHeader>
