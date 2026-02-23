@@ -72,14 +72,14 @@ export default function Sekretaris() {
   };
 
   const handleDelete = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this record?')) {
+    if (window.confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
       setActivities(activities.filter(a => a.id !== id));
     }
   };
 
   const columns = [
     {
-      label: 'Document Name',
+      label: 'Nama Dokumen',
       key: 'title',
       render: (item: Activity) => (
         <div className="flex items-center gap-3">
@@ -94,7 +94,7 @@ export default function Sekretaris() {
       )
     },
     {
-      label: 'Date',
+      label: 'Tanggal',
       key: 'date',
       render: (item: Activity) => (
         <span className="text-sm font-mono">{formatDate(item.date)}</span>
@@ -110,7 +110,7 @@ export default function Sekretaris() {
       )
     },
     {
-      label: 'Reference',
+      label: 'Referensi',
       key: 'metadata',
       render: (item: Activity) => (
         <span className="text-xs text-muted-foreground">
@@ -129,7 +129,7 @@ export default function Sekretaris() {
             Divisi Sekretariat
           </h1>
           <p className="text-muted-foreground">
-            Digital archive management for mail and meeting minutes.
+            Manajemen arsip digital untuk surat dan notulensi rapat.
           </p>
         </div>
 
@@ -141,12 +141,12 @@ export default function Sekretaris() {
             <DialogTrigger asChild>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg flex items-center gap-2">
                 <Plus className="w-4 h-4" />
-                New Archive
+                Arsip Baru
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
               <DialogHeader>
-                <DialogTitle>{editingItem ? 'Edit Archive' : 'Add New Archive'}</DialogTitle>
+                <DialogTitle>{editingItem ? 'Edit Arsip' : 'Tambah Arsip Baru'}</DialogTitle>
               </DialogHeader>
               <ActivityForm 
                 onSubmit={editingItem ? handleUpdateArchive : handleAddArchive}
@@ -160,33 +160,33 @@ export default function Sekretaris() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="border-primary/20">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Total Documents</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Dokumen</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{activities.length}</div>
-            <p className="text-xs text-emerald-600 font-medium">+4 updated this week</p>
+            <p className="text-xs text-emerald-600 font-medium">+4 diperbarui minggu ini</p>
           </CardContent>
         </Card>
         <Card className="border-primary/20">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Meeting Minutes</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Notulensi Rapat</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {activities.filter(a => a.title.toLowerCase().includes('meeting')).length}
             </div>
-            <p className="text-xs text-muted-foreground">From regular coordination</p>
+            <p className="text-xs text-muted-foreground">Dari koordinasi rutin</p>
           </CardContent>
         </Card>
         <Card className="border-primary/20">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Pending Review</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Menunggu Tinjauan</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-amber-600">
               {activities.filter(a => a.status === 'pending').length}
             </div>
-            <p className="text-xs text-muted-foreground">Needs mudir validation</p>
+            <p className="text-xs text-muted-foreground">Perlu validasi mudir</p>
           </CardContent>
         </Card>
       </div>
@@ -194,15 +194,15 @@ export default function Sekretaris() {
       <Tabs defaultValue="all" className="w-full">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
           <TabsList className="bg-secondary/50">
-            <TabsTrigger value="all">All Archives</TabsTrigger>
-            <TabsTrigger value="mail">Mail Log</TabsTrigger>
-            <TabsTrigger value="minutes">Minutes</TabsTrigger>
+            <TabsTrigger value="all">Semua Arsip</TabsTrigger>
+            <TabsTrigger value="mail">Log Surat</TabsTrigger>
+            <TabsTrigger value="minutes">Notulensi</TabsTrigger>
           </TabsList>
 
           <div className="relative w-full md:w-72">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input 
-              placeholder="Search documents..."
+              placeholder="Cari dokumen..."
               className="pl-9 bg-background border-border"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -221,7 +221,7 @@ export default function Sekretaris() {
                   setIsDialogOpen(true);
                 } : undefined}
                 onDelete={canWrite ? handleDelete : undefined}
-                searchPlaceholder="Filter list..."
+                searchPlaceholder="Saring daftar..."
               />
             </CardContent>
           </Card>
@@ -231,9 +231,9 @@ export default function Sekretaris() {
           <Card>
             <CardContent className="p-8 text-center">
               <Mail className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
-              <h3 className="text-lg font-medium">Incoming/Outgoing Mail Log</h3>
+              <h3 className="text-lg font-medium">Log Surat Masuk/Keluar</h3>
               <p className="text-sm text-muted-foreground max-w-sm mx-auto mb-6">
-                This section displays filtered results for official correspondence records.
+                Bagian ini menampilkan hasil penyaringan untuk catatan korespondensi resmi.
               </p>
               <DataTable 
                 columns={columns}
@@ -247,9 +247,9 @@ export default function Sekretaris() {
           <Card>
             <CardContent className="p-8 text-center">
               <FileSignature className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
-              <h3 className="text-lg font-medium">Notulensi (Meeting Minutes)</h3>
+              <h3 className="text-lg font-medium">Notulensi (Risalah Rapat)</h3>
               <p className="text-sm text-muted-foreground max-w-sm mx-auto mb-6">
-                Official records of decisions made during pesantren council meetings.
+                Catatan resmi keputusan yang diambil selama rapat dewan pesantren.
               </p>
               <DataTable 
                 columns={columns}
@@ -265,16 +265,16 @@ export default function Sekretaris() {
           <CardHeader>
             <CardTitle className="text-accent-foreground flex items-center gap-2 text-base">
               <Eye className="w-4 h-4" />
-              Pimpinan Feedback Panel
+              Panel Umpan Balik Pimpinan
             </CardTitle>
             <CardDescription>
-              Direct feedback for the Secretary division regarding document quality.
+              Umpan balik langsung untuk divisi Sekretariat terkait kualitas dokumen.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex gap-4">
-              <Input placeholder="Write a quick comment..." className="flex-1" />
-              <Button className="bg-accent text-accent-foreground hover:opacity-90 shadow-sm">Post Feedback</Button>
+              <Input placeholder="Tulis komentar singkat..." className="flex-1" />
+              <Button className="bg-accent text-accent-foreground hover:opacity-90 shadow-sm">Kirim Umpan Balik</Button>
             </div>
           </CardContent>
         </Card>
