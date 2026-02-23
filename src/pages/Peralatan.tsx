@@ -49,7 +49,7 @@ const Peralatan: React.FC = () => {
 
   const columns = [
     {
-      label: 'Item Name',
+      label: 'Nama Barang',
       key: 'name',
       render: (item: InventoryItem) => (
         <div className="flex items-center gap-3">
@@ -61,14 +61,14 @@ const Peralatan: React.FC = () => {
       ),
     },
     {
-      label: 'Qty',
+      label: 'Jml',
       key: 'quantity',
       render: (item: InventoryItem) => (
         <span className="font-mono">{item.quantity}</span>
       ),
     },
     {
-      label: 'Condition',
+      label: 'Kondisi',
       key: 'condition',
       render: (item: InventoryItem) => (
         <Badge 
@@ -91,7 +91,7 @@ const Peralatan: React.FC = () => {
       ),
     },
     {
-      label: 'Borrower',
+      label: 'Peminjam',
       key: 'borrowerName',
       render: (item: InventoryItem) => (
         <span className="text-sm text-muted-foreground italic">
@@ -112,9 +112,9 @@ const Peralatan: React.FC = () => {
   };
 
   const handleDeleteItem = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
+    if (window.confirm('Apakah Anda yakin ingin menghapus barang ini?')) {
       setInventory(prev => prev.filter(item => item.id !== id));
-      toast.success('Item deleted successfully');
+      toast.success('Barang berhasil dihapus');
     }
   };
 
@@ -124,7 +124,7 @@ const Peralatan: React.FC = () => {
       setInventory(prev => prev.map(item => 
         item.id === selectedItem.id ? { ...item, ...data } : item
       ));
-      toast.success('Item updated successfully');
+      toast.success('Barang berhasil diperbarui');
     } else {
       // Create
       const newItem: InventoryItem = {
@@ -132,7 +132,7 @@ const Peralatan: React.FC = () => {
         id: `inv-${Date.now()}`,
       };
       setInventory(prev => [newItem, ...prev]);
-      toast.success('New item added to inventory');
+      toast.success('Barang baru ditambahkan ke inventaris');
     }
     setIsDialogOpen(false);
   };
@@ -142,7 +142,7 @@ const Peralatan: React.FC = () => {
       <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-primary">Divisi Peralatan</h1>
-          <p className="text-muted-foreground">Inventory tracking and equipment management system.</p>
+          <p className="text-muted-foreground">Sistem pelacakan inventaris dan manajemen peralatan.</p>
         </div>
         {canWrite && (
           <Button 
@@ -150,7 +150,7 @@ const Peralatan: React.FC = () => {
             className="bg-primary hover:bg-primary/90 text-white gap-2 shadow-lg shadow-primary/20"
           >
             <Plus className="w-4 h-4" />
-            Add New Item
+            Tambah Barang Baru
           </Button>
         )}
       </header>
@@ -160,7 +160,7 @@ const Peralatan: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Total Items</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Barang</p>
                 <h3 className="text-2xl font-bold">{stats.total}</h3>
               </div>
               <div className="p-3 rounded-full bg-primary/10">
@@ -174,7 +174,7 @@ const Peralatan: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Available</p>
+                <p className="text-sm font-medium text-muted-foreground">Tersedia</p>
                 <h3 className="text-2xl font-bold">{stats.available}</h3>
               </div>
               <div className="p-3 rounded-full bg-emerald-50">
@@ -188,7 +188,7 @@ const Peralatan: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Borrowed</p>
+                <p className="text-sm font-medium text-muted-foreground">Dipinjam</p>
                 <h3 className="text-2xl font-bold">{stats.borrowed}</h3>
               </div>
               <div className="p-3 rounded-full bg-amber-50">
@@ -202,7 +202,7 @@ const Peralatan: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Maintenance</p>
+                <p className="text-sm font-medium text-muted-foreground">Perbaikan</p>
                 <h3 className="text-2xl font-bold">{stats.broken}</h3>
               </div>
               <div className="p-3 rounded-full bg-rose-50">
@@ -215,15 +215,15 @@ const Peralatan: React.FC = () => {
 
       <Card className="shadow-md">
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-xl">Inventory List</CardTitle>
+          <CardTitle className="text-xl">Daftar Inventaris</CardTitle>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" className="gap-2">
               <Filter className="w-4 h-4" />
-              Filter
+              Saring
             </Button>
             <Button variant="outline" size="sm" className="gap-2">
               <History className="w-4 h-4" />
-              History
+              Riwayat
             </Button>
           </div>
         </CardHeader>
@@ -231,7 +231,7 @@ const Peralatan: React.FC = () => {
           <DataTable 
             columns={columns} 
             data={inventory} 
-            searchPlaceholder="Search equipment by name..."
+            searchPlaceholder="Cari peralatan berdasarkan nama..."
             onEdit={canWrite ? handleEditItem : undefined}
             onDelete={canWrite ? handleDeleteItem : undefined}
           />
@@ -242,10 +242,10 @@ const Peralatan: React.FC = () => {
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle className="text-primary">
-              {selectedItem ? 'Edit Equipment' : 'Add New Equipment'}
+              {selectedItem ? 'Edit Peralatan' : 'Tambah Peralatan Baru'}
             </DialogTitle>
             <DialogDescription>
-              Update your inventory records. Ensure quantity and condition are accurate.
+              Perbarui catatan inventaris Anda. Pastikan jumlah dan kondisi akurat.
             </DialogDescription>
           </DialogHeader>
           <div className="mt-4">
